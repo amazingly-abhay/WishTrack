@@ -20,7 +20,8 @@ services:
         value: https://wishtrack-web.onrender.com
 
   # React PWA Static Frontend
-  - type: static
+  - type: web
+    runtime: static
     name: wishtrack-web
     region: oregon
     plan: free
