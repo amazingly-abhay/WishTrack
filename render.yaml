@@ -1,0 +1,40 @@
+services:
+  # FastAPI Backend Service
+  - type: web
+    name: wishtrack-api
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: "python3 -m pip install -r requirements.txt && cd apps/api && alembic upgrade head"
+    startCommand: "cd apps/api && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: wishtrack-db
+          property: connectionString
+      - key: WEB_ORIGIN
+        value: https://wishtrack-web.onrender.com
+
+  # React PWA Static Frontend
+  - type: static
+    name: wishtrack-web
+    region: oregon
+    plan: free
+    buildCommand: "cd apps/web && npm install && npm run build"
+    staticPublishPath: "./apps/web/dist"
+    routes:
+      - type: rewrite
+        source: "/*"
+        destination: "/index.html"
+    envVars:
+      - key: VITE_API_URL
+        value: https://wishtrack-api.onrender.com/api/v1
+
+databases:
+  - name: wishtrack-db
+    plan: free
+    region: oregon
