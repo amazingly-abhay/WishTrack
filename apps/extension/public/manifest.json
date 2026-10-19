@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "WishTrack - Price Tracker",
+  "version": "1.0.0",
+  "description": "Save products and track price drops across retailers in one click.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Add to WishTrack"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/extractor.js"]
+    }
+  ]
+}

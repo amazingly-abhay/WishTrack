@@ -1,0 +1,14 @@
+{
+  "name": "wishtrack-extension",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.263",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.6"
+  }
+}
