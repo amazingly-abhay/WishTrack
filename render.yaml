@@ -24,7 +24,7 @@ services:
     runtime: static
     name: wishtrack-web
     #region: oregon
-    plan: free
+    #plan: free
     buildCommand: "cd apps/web && npm install && npm run build"
     staticPublishPath: "./apps/web/dist"
     routes:
