@@ -1,4 +1,5 @@
-const API_BASE = '/api/v1';
+const envApiUrl = (import.meta as unknown as { env?: { VITE_API_URL?: string } }).env?.VITE_API_URL;
+const API_BASE = (envApiUrl || '/api/v1').replace(/\/+$/, '');
 
 export class ApiError extends Error {
   code: string;
@@ -59,5 +60,18 @@ export async function apiRequest<T>(endpoint: string, options: RequestInit = {})
     return {} as T;
   }
 
-  return response.json();
+  const text = await response.text();
+  if (!text || !text.trim()) {
+    return {} as T;
+  }
+
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    throw new ApiError(
+      'INVALID_RESPONSE',
+      'The server returned an invalid or non-JSON response.',
+      response.status
+    );
+  }
 }
