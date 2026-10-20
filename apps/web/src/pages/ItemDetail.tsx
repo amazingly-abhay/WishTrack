@@ -123,13 +123,13 @@ export const ItemDetail: React.FC = () => {
       </button>
 
       {/* Header Info Card */}
-      <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '24px', marginBottom: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
-          <div style={{ flex: 1, minWidth: '280px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#2563eb', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+      <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '16px', marginBottom: '20px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '14px' }}>
+          <div style={{ flex: '1 1 240px', minWidth: '200px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#2563eb', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               {item.retailer_host} &bull; {item.tracking_mode} mode
             </span>
-            <h1 style={{ fontSize: '24px', fontWeight: 'bold', color: '#0f172a', margin: '6px 0 12px 0', lineHeight: '1.3' }}>
+            <h1 style={{ fontSize: 'clamp(18px, 4vw, 24px)', fontWeight: 'bold', color: '#0f172a', margin: '4px 0 10px 0', lineHeight: '1.3' }}>
               {item.title}
             </h1>
 
@@ -144,25 +144,25 @@ export const ItemDetail: React.FC = () => {
                   gap: '6px',
                   color: '#475569',
                   backgroundColor: '#f1f5f9',
-                  padding: '6px 12px',
+                  padding: '5px 10px',
                   borderRadius: '6px',
-                  fontSize: '13px',
+                  fontSize: '12px',
                   textDecoration: 'none',
                   fontWeight: '500',
                 }}
               >
-                <ExternalLink size={14} /> Open Store Page
+                <ExternalLink size={13} /> Open Store
               </a>
 
               {item.tags.map((t) => (
-                <span key={t} style={{ fontSize: '12px', backgroundColor: '#e2e8f0', color: '#334155', padding: '4px 8px', borderRadius: '4px' }}>
+                <span key={t} style={{ fontSize: '11px', backgroundColor: '#e2e8f0', color: '#334155', padding: '3px 8px', borderRadius: '4px' }}>
                   #{t}
                 </span>
               ))}
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', width: 'auto' }}>
             <button
               onClick={async () => {
                 if (!item) return;
@@ -182,14 +182,14 @@ export const ItemDetail: React.FC = () => {
                 backgroundColor: '#ffffff',
                 color: '#ef4444',
                 border: '1px solid #fecaca',
-                padding: '10px 14px',
+                padding: '8px 12px',
                 borderRadius: '8px',
                 fontWeight: '600',
                 cursor: 'pointer',
-                fontSize: '14px',
+                fontSize: '13px',
               }}
             >
-              <Trash2 size={16} /> Delete
+              <Trash2 size={15} /> Delete
             </button>
 
             <button
@@ -201,14 +201,14 @@ export const ItemDetail: React.FC = () => {
                 backgroundColor: '#2563eb',
                 color: '#ffffff',
                 border: 'none',
-                padding: '10px 16px',
+                padding: '8px 14px',
                 borderRadius: '8px',
                 fontWeight: '600',
                 cursor: 'pointer',
-                fontSize: '14px',
+                fontSize: '13px',
               }}
             >
-              <Plus size={16} /> Log Manual Price
+              <Plus size={15} /> Log Price
             </button>
           </div>
         </div>
@@ -265,64 +265,65 @@ export const ItemDetail: React.FC = () => {
       </div>
 
       {/* Metrics Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
-        <div style={{ backgroundColor: '#ffffff', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: '12px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase' }}>Current Price</div>
-          <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#0f172a', marginTop: '4px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', gap: '12px', marginBottom: '20px' }}>
+        <div style={{ backgroundColor: '#ffffff', padding: '12px 14px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase' }}>Current Price</div>
+          <div style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: 'bold', color: '#0f172a', marginTop: '2px' }}>
             {formatPrice(summary?.current_price_minor, summary?.currency)}
           </div>
           {summary?.change_percent !== null && summary?.change_percent !== undefined && (
-            <div style={{ fontSize: '12px', color: summary.change_percent <= 0 ? '#16a34a' : '#dc2626', marginTop: '4px', fontWeight: '600' }}>
-              {summary.change_percent <= 0 ? '↓' : '↑'} {Math.abs(summary.change_percent)}% from previous
+            <div style={{ fontSize: '11px', color: summary.change_percent <= 0 ? '#16a34a' : '#dc2626', marginTop: '2px', fontWeight: '600' }}>
+              {summary.change_percent <= 0 ? '↓' : '↑'} {Math.abs(summary.change_percent)}%
             </div>
           )}
         </div>
 
-        <div style={{ backgroundColor: '#ffffff', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: '12px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase' }}>Lowest in 365 Days</div>
-          <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#16a34a', marginTop: '4px' }}>
+        <div style={{ backgroundColor: '#ffffff', padding: '12px 14px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase' }}>365d Low</div>
+          <div style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: 'bold', color: '#16a34a', marginTop: '2px' }}>
             {formatPrice(summary?.lowest_365d_price_minor, summary?.currency)}
           </div>
-          <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px' }}>Rolling 365-day observed low</div>
+          <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>Rolling low</div>
         </div>
 
-        <div style={{ backgroundColor: '#ffffff', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: '12px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase' }}>Target Price</div>
-          <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#2563eb', marginTop: '4px' }}>
+        <div style={{ backgroundColor: '#ffffff', padding: '12px 14px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase' }}>Target</div>
+          <div style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: 'bold', color: '#2563eb', marginTop: '2px' }}>
             {item.target_price_minor ? formatPrice(item.target_price_minor, item.currency) : 'Not set'}
           </div>
           {summary?.target_reached && (
-            <div style={{ fontSize: '12px', color: '#16a34a', fontWeight: '600', marginTop: '4px' }}>Target reached!</div>
+            <div style={{ fontSize: '11px', color: '#16a34a', fontWeight: '600', marginTop: '2px' }}>Hit!</div>
           )}
         </div>
 
-        <div style={{ backgroundColor: '#ffffff', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: '12px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase' }}>Total Checks</div>
-          <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#0f172a', marginTop: '4px' }}>
+        <div style={{ backgroundColor: '#ffffff', padding: '12px 14px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+          <div style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase' }}>Total Checks</div>
+          <div style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: 'bold', color: '#0f172a', marginTop: '2px' }}>
             {summary?.observation_count || 0}
           </div>
-          <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px' }}>Observations logged</div>
+          <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '2px' }}>Recorded</div>
         </div>
       </div>
 
       {/* Chart Card */}
-      <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '24px', marginBottom: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
-          <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', margin: 0 }}>Price History Chart</h2>
-          <div style={{ display: 'flex', gap: '6px' }}>
+      <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', padding: '16px', marginBottom: '20px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '10px' }}>
+          <h2 style={{ fontSize: '16px', fontWeight: 'bold', color: '#1e293b', margin: 0 }}>Price History Chart</h2>
+          <div style={{ display: 'flex', gap: '4px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
             {['7d', '30d', '90d', '180d', '365d'].map((r) => (
               <button
                 key={r}
                 onClick={() => setRange(r)}
                 style={{
-                  padding: '6px 12px',
+                  padding: '5px 10px',
                   borderRadius: '6px',
                   border: '1px solid #cbd5e1',
                   backgroundColor: range === r ? '#2563eb' : '#ffffff',
                   color: range === r ? '#ffffff' : '#475569',
-                  fontSize: '12px',
+                  fontSize: '11px',
                   fontWeight: '600',
                   cursor: 'pointer',
+                  flexShrink: 0,
                 }}
               >
                 {r}

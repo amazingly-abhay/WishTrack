@@ -79,38 +79,38 @@ export const NotificationsPage: React.FC = () => {
   return (
     <div style={{ maxWidth: '720px', margin: '0 auto' }}>
       {/* Header & Tabs */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 'bold', margin: '0 0 4px 0', color: '#0f172a' }}>Notifications</h1>
-          <p style={{ margin: 0, color: '#64748b', fontSize: '14px' }}>Price drops, targets reached, and 365-day lows</p>
+          <h1 style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 'bold', margin: '0 0 4px 0', color: '#0f172a' }}>Notifications</h1>
+          <p style={{ margin: 0, color: '#64748b', fontSize: '13px' }}>Price drops, targets reached, and 365-day lows</p>
         </div>
 
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div style={{ display: 'flex', gap: '6px' }}>
           <button
             onClick={() => setActiveTab('inbox')}
             style={{
-              padding: '8px 16px',
+              padding: '7px 12px',
               borderRadius: '8px',
               border: '1px solid #cbd5e1',
               backgroundColor: activeTab === 'inbox' ? '#2563eb' : '#ffffff',
               color: activeTab === 'inbox' ? '#ffffff' : '#475569',
               fontWeight: '600',
-              fontSize: '13px',
+              fontSize: '12px',
               cursor: 'pointer',
             }}
           >
-            Inbox ({notifications.filter((n) => !n.read_at).length} unread)
+            Inbox ({notifications.filter((n) => !n.read_at).length})
           </button>
           <button
             onClick={() => setActiveTab('preferences')}
             style={{
-              padding: '8px 16px',
+              padding: '7px 12px',
               borderRadius: '8px',
               border: '1px solid #cbd5e1',
               backgroundColor: activeTab === 'preferences' ? '#2563eb' : '#ffffff',
               color: activeTab === 'preferences' ? '#ffffff' : '#475569',
               fontWeight: '600',
-              fontSize: '13px',
+              fontSize: '12px',
               cursor: 'pointer',
             }}
           >

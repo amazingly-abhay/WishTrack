@@ -38,13 +38,28 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#f8fafc', color: '#0f172a', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       {/* Top Header */}
-      <header style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #e2e8f0', padding: '12px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <header
+        style={{
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid #e2e8f0',
+          padding: '12px 16px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          position: 'sticky',
+          top: 0,
+          zIndex: 100,
+        }}
+      >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '20px', fontWeight: 'bold', color: '#2563eb' }}>WishTrack</span>
-          <span style={{ fontSize: '12px', backgroundColor: '#dbeafe', color: '#1e40af', padding: '2px 8px', borderRadius: '12px', fontWeight: '500' }}>PWA</span>
+          <span style={{ fontSize: '18px', fontWeight: 'bold', color: '#2563eb' }}>WishTrack</span>
+          <span style={{ fontSize: '11px', backgroundColor: '#dbeafe', color: '#1e40af', padding: '1px 6px', borderRadius: '10px', fontWeight: '600' }}>
+            PWA
+          </span>
         </div>
 
-        <nav style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+        {/* Desktop Nav */}
+        <nav className="desktop-nav" style={{ gap: '16px', alignItems: 'center' }}>
           {navItems.map((item) => {
             const Icon = item.icon;
             const active = location.pathname === item.path;
@@ -63,12 +78,22 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
                   borderRadius: '6px',
                   backgroundColor: active ? '#eff6ff' : 'transparent',
                   position: 'relative',
+                  fontSize: '14px',
                 }}
               >
                 <Icon size={18} />
                 <span>{item.label}</span>
                 {item.badge !== undefined && item.badge > 0 && (
-                  <span style={{ backgroundColor: '#ef4444', color: '#ffffff', fontSize: '11px', fontWeight: 'bold', padding: '1px 6px', borderRadius: '10px' }}>
+                  <span
+                    style={{
+                      backgroundColor: '#ef4444',
+                      color: '#ffffff',
+                      fontSize: '11px',
+                      fontWeight: 'bold',
+                      padding: '1px 6px',
+                      borderRadius: '10px',
+                    }}
+                  >
                     {item.badge}
                   </span>
                 )}
@@ -77,9 +102,20 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
           })}
         </nav>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        {/* User / Logout */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {user && (
-            <span style={{ fontSize: '14px', color: '#64748b' }}>
+            <span
+              className="mobile-hide"
+              style={{
+                fontSize: '13px',
+                color: '#64748b',
+                maxWidth: '160px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
               {user.display_name || user.email}
             </span>
           )}
@@ -88,29 +124,104 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '6px',
-              padding: '6px 12px',
+              gap: '4px',
+              padding: '6px 10px',
               borderRadius: '6px',
               border: '1px solid #cbd5e1',
               backgroundColor: '#ffffff',
               cursor: 'pointer',
-              fontSize: '14px',
+              fontSize: '13px',
               color: '#475569',
             }}
+            title="Log out"
           >
-            <LogOut size={16} />
-            Logout
+            <LogOut size={15} />
+            <span className="mobile-hide">Logout</span>
           </button>
         </div>
       </header>
 
       {/* Main Content */}
-      <main style={{ flex: 1, padding: '24px', maxWidth: '1200px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+      <main className="main-container" style={{ flex: 1, maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
         {children}
       </main>
 
-      {/* Footer */}
-      <footer style={{ borderTop: '1px solid #e2e8f0', padding: '16px 24px', textAlign: 'center', fontSize: '13px', color: '#94a3b8', backgroundColor: '#ffffff' }}>
+      {/* Fixed Mobile Bottom Navigation Bar */}
+      <nav
+        className="mobile-bottom-nav"
+        style={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          backgroundColor: '#ffffff',
+          borderTop: '1px solid #e2e8f0',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          padding: '8px 0 calc(8px + env(safe-area-inset-bottom, 0px)) 0',
+          zIndex: 999,
+          boxShadow: '0 -2px 10px rgba(0,0,0,0.06)',
+        }}
+      >
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const active = location.pathname === item.path;
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '3px',
+                textDecoration: 'none',
+                color: active ? '#2563eb' : '#64748b',
+                fontSize: '11px',
+                fontWeight: active ? '700' : '500',
+                position: 'relative',
+                padding: '4px 12px',
+              }}
+            >
+              <div style={{ position: 'relative' }}>
+                <Icon size={20} strokeWidth={active ? 2.5 : 2} />
+                {item.badge !== undefined && item.badge > 0 && (
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: '-4px',
+                      right: '-8px',
+                      backgroundColor: '#ef4444',
+                      color: '#ffffff',
+                      fontSize: '10px',
+                      fontWeight: 'bold',
+                      padding: '1px 5px',
+                      borderRadius: '8px',
+                      lineHeight: '1',
+                    }}
+                  >
+                    {item.badge}
+                  </span>
+                )}
+              </div>
+              <span>{item.label}</span>
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* Desktop Footer */}
+      <footer
+        className="mobile-hide"
+        style={{
+          borderTop: '1px solid #e2e8f0',
+          padding: '16px 24px',
+          textAlign: 'center',
+          fontSize: '13px',
+          color: '#94a3b8',
+          backgroundColor: '#ffffff',
+        }}
+      >
         WishTrack &copy; {new Date().getFullYear()} &bull; 365-Day Price Tracking &bull; Non-intrusive & Secure
       </footer>
     </div>

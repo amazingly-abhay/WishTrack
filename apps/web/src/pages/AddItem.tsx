@@ -110,23 +110,23 @@ export const AddItem: React.FC = () => {
         <ArrowLeft size={16} /> Back to Wishlist
       </button>
 
-      <div style={{ backgroundColor: '#ffffff', padding: '32px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 'bold', margin: '0 0 8px 0', color: '#0f172a' }}>Add Item to Wishlist</h1>
-        <p style={{ margin: '0 0 24px 0', color: '#64748b', fontSize: '14px' }}>
+      <div style={{ backgroundColor: '#ffffff', padding: 'clamp(16px, 4vw, 32px)', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+        <h1 style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 'bold', margin: '0 0 6px 0', color: '#0f172a' }}>Add Item to Wishlist</h1>
+        <p style={{ margin: '0 0 20px 0', color: '#64748b', fontSize: '13px' }}>
           Paste a product URL from any website. Supported sites track automatically; unsupported sites are saved as manual wishlist items.
         </p>
 
         {error && (
-          <div style={{ backgroundColor: '#fef2f2', border: '1px solid #fecaca', color: '#b91c1c', padding: '12px 16px', borderRadius: '8px', fontSize: '14px', marginBottom: '20px' }}>
+          <div style={{ backgroundColor: '#fef2f2', border: '1px solid #fecaca', color: '#b91c1c', padding: '10px 14px', borderRadius: '8px', fontSize: '13px', marginBottom: '16px' }}>
             {error}
           </div>
         )}
 
         {/* Step 1: URL Input */}
-        <form onSubmit={handlePreview} style={{ marginBottom: '24px' }}>
+        <form onSubmit={handlePreview} style={{ marginBottom: '20px' }}>
           <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#334155', marginBottom: '6px' }}>Product URL</label>
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <div style={{ position: 'relative', flex: 1 }}>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <div style={{ position: 'relative', flex: '1 1 200px', minWidth: '160px' }}>
               <LinkIcon size={16} style={{ position: 'absolute', left: '12px', top: '12px', color: '#94a3b8' }} />
               <input
                 type="url"
@@ -157,6 +157,7 @@ export const AddItem: React.FC = () => {
                 cursor: isPreviewing ? 'not-allowed' : 'pointer',
                 fontSize: '14px',
                 whiteSpace: 'nowrap',
+                flexGrow: 0,
               }}
             >
               {isPreviewing ? 'Checking...' : 'Inspect URL'}
@@ -253,7 +254,7 @@ export const AddItem: React.FC = () => {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', gap: '12px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#334155', marginBottom: '6px' }}>Current Price ({currency})</label>
                   <input

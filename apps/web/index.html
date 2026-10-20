@@ -8,6 +8,64 @@
     <meta name="description" content="Wishlist PWA that tracks prices for at least 365 days and alerts on drops." />
     <link rel="manifest" href="/manifest.json" />
     <title>WishTrack - Price Tracker Wishlist</title>
+    <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+        overflow-x: hidden;
+        -webkit-tap-highlight-color: transparent;
+      }
+      /* Mobile responsive styles */
+      @media (max-width: 640px) {
+        .mobile-hide {
+          display: none !important;
+        }
+        .mobile-col {
+          flex-direction: column !important;
+          align-items: stretch !important;
+        }
+        .mobile-full {
+          width: 100% !important;
+        }
+        .mobile-p-12 {
+          padding: 12px !important;
+        }
+        .mobile-gap-8 {
+          gap: 8px !important;
+        }
+        .mobile-text-sm {
+          font-size: 13px !important;
+        }
+        .mobile-grid-1 {
+          grid-template-columns: 1fr !important;
+        }
+        .mobile-bottom-nav {
+          display: flex !important;
+        }
+        .desktop-nav {
+          display: none !important;
+        }
+        .main-container {
+          padding: 12px 12px 80px 12px !important;
+        }
+      }
+      @media (min-width: 641px) {
+        .mobile-bottom-nav {
+          display: none !important;
+        }
+        .desktop-nav {
+          display: flex !important;
+        }
+        .main-container {
+          padding: 24px !important;
+        }
+      }
+    </style>
   </head>
   <body class="bg-slate-50 text-slate-900 antialiased font-sans">
     <div id="root"></div>

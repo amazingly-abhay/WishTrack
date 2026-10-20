@@ -236,21 +236,21 @@ export const Wishlist: React.FC = () => {
   return (
     <div>
       {/* Header & Controls */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <h1 style={{ fontSize: '28px', fontWeight: 'bold', margin: '0 0 4px 0', color: '#0f172a' }}>
+          <h1 style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 'bold', margin: '0 0 4px 0', color: '#0f172a' }}>
             {activeWishlistId === 'all'
               ? 'All Wishlist Items'
               : currentWishlistObj?.name || 'Wishlist'}
           </h1>
-          <p style={{ margin: 0, color: '#64748b', fontSize: '14px' }}>
+          <p style={{ margin: 0, color: '#64748b', fontSize: '13px' }}>
             {activeWishlistId === 'all'
               ? `Tracking ${items.length} items across all collections`
               : `${currentWishlistObj?.description || 'Separate wishlist collection'} • ${items.length} items`}
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <button
             onClick={() => setShowCreateModal(true)}
             style={{
@@ -395,9 +395,9 @@ export const Wishlist: React.FC = () => {
       </div>
 
       {/* Search, Filter & Sort Bar */}
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', flexWrap: 'wrap', alignItems: 'center' }}>
-        <div style={{ position: 'relative', flex: 1, minWidth: '220px' }}>
-          <Search size={18} style={{ position: 'absolute', left: '12px', top: '12px', color: '#94a3b8' }} />
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', flexWrap: 'wrap', alignItems: 'center' }}>
+        <div style={{ position: 'relative', flex: '1 1 200px', minWidth: '160px', width: '100%' }}>
+          <Search size={16} style={{ position: 'absolute', left: '10px', top: '10px', color: '#94a3b8' }} />
           <input
             type="text"
             placeholder="Search items by title or retailer..."
@@ -405,63 +405,67 @@ export const Wishlist: React.FC = () => {
             onChange={(e) => setSearch(e.target.value)}
             style={{
               width: '100%',
-              padding: '10px 12px 10px 38px',
+              padding: '8px 10px 8px 34px',
               borderRadius: '8px',
               border: '1px solid #cbd5e1',
-              fontSize: '14px',
+              fontSize: '13px',
               boxSizing: 'border-box',
               backgroundColor: '#ffffff',
             }}
           />
         </div>
 
-        {/* Filter Badges */}
-        <div style={{ display: 'flex', gap: '8px' }}>
-          {(['all', 'target_hit', 'dropped'] as const).map((mode) => (
-            <button
-              key={mode}
-              onClick={() => setFilterMode(mode)}
+        {/* Filter Badges & Sort Container */}
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '2px', WebkitOverflowScrolling: 'touch' }}>
+            {(['all', 'target_hit', 'dropped'] as const).map((mode) => (
+              <button
+                key={mode}
+                onClick={() => setFilterMode(mode)}
+                style={{
+                  padding: '6px 10px',
+                  borderRadius: '6px',
+                  border: '1px solid #cbd5e1',
+                  backgroundColor: filterMode === mode ? '#2563eb' : '#ffffff',
+                  color: filterMode === mode ? '#ffffff' : '#475569',
+                  fontSize: '11px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0,
+                }}
+              >
+                {mode === 'all' && 'All Status'}
+                {mode === 'target_hit' && 'Target Hit'}
+                {mode === 'dropped' && 'Price Drops'}
+              </button>
+            ))}
+          </div>
+
+          {/* Sort Select */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px', backgroundColor: '#ffffff', padding: '4px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', flexShrink: 0 }}>
+            <ArrowUpDown size={13} color="#64748b" />
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
               style={{
-                padding: '8px 14px',
-                borderRadius: '8px',
-                border: '1px solid #cbd5e1',
-                backgroundColor: filterMode === mode ? '#2563eb' : '#ffffff',
-                color: filterMode === mode ? '#ffffff' : '#475569',
-                fontSize: '13px',
-                fontWeight: '600',
+                border: 'none',
+                background: 'transparent',
+                fontSize: '11px',
+                color: '#334155',
+                fontWeight: '500',
+                outline: 'none',
                 cursor: 'pointer',
+                padding: '2px 0',
               }}
             >
-              {mode === 'all' && 'All Status'}
-              {mode === 'target_hit' && 'Target Reached'}
-              {mode === 'dropped' && 'Price Drops'}
-            </button>
-          ))}
-        </div>
-
-        {/* Sort Select */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#ffffff', padding: '4px 10px', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
-          <ArrowUpDown size={15} color="#64748b" />
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            style={{
-              border: 'none',
-              background: 'transparent',
-              fontSize: '13px',
-              color: '#334155',
-              fontWeight: '500',
-              outline: 'none',
-              cursor: 'pointer',
-              padding: '4px 0',
-            }}
-          >
-            <option value="newest">Recently Added</option>
-            <option value="product_type">Sort by Product Type (A-Z)</option>
-            <option value="drop_pct">Biggest Price Drop (%)</option>
-            <option value="price_asc">Price: Low to High</option>
-            <option value="price_desc">Price: High to Low</option>
-          </select>
+              <option value="newest">Recently Added</option>
+              <option value="product_type">Product Type (A-Z)</option>
+              <option value="drop_pct">Biggest Drop (%)</option>
+              <option value="price_asc">Price: Low-High</option>
+              <option value="price_desc">Price: High-Low</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -500,7 +504,7 @@ export const Wishlist: React.FC = () => {
           </Link>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '16px' }}>
           {processedItems.map((item) => {
             const hasDrop = item.previous_price_minor && item.current_price_minor && item.current_price_minor < item.previous_price_minor;
             const targetHit = item.target_price_minor && item.current_price_minor && item.current_price_minor <= item.target_price_minor;

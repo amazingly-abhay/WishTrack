@@ -31,9 +31,9 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f1f5f9', fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ backgroundColor: '#ffffff', padding: '36px', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', width: '100%', maxWidth: '400px' }}>
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '8px', color: '#1e293b', textAlign: 'center' }}>Sign In to WishTrack</h2>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f1f5f9', fontFamily: 'system-ui, sans-serif', padding: '16px' }}>
+      <div style={{ backgroundColor: '#ffffff', padding: 'clamp(20px, 5vw, 36px)', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', width: '100%', maxWidth: '400px' }}>
+        <h2 style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 'bold', marginBottom: '8px', color: '#1e293b', textAlign: 'center' }}>Sign In to WishTrack</h2>
         <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px', textAlign: 'center' }}>Track prices and drops across multiple shopping sites</p>
 
         {error && (
